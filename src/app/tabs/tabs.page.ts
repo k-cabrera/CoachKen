@@ -9,7 +9,7 @@ import { IonTabs } from '@ionic/angular';
 export class TabsPage implements OnInit {
   constructor() { }
 
-  ngOnInit() { 
+  ngOnInit() {
   }
 
   
