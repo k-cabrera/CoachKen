@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "blogapp-66847": {
+      "hosting": {
+        "app": [
+          "blogapp-66847"
+        ]
+      }
+    }
+  }
+}
