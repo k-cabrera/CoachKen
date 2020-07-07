@@ -12,9 +12,6 @@ export class TabsPage implements OnInit {
   ngOnInit() { 
   }
 
-  fileChanged(event) {
-    const files = event.target.files
-    console.log(files)
-  }
+  
 
 }
