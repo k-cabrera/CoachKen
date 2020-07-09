@@ -1,5 +1,8 @@
 {
   "name": "BlogApp",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
   "type": "angular"
 }
