@@ -15,7 +15,8 @@ import { auth } from 'firebase';
 import { UserService } from './user.service';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-
+import { HttpClientModule } from '@angular/common/http'
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 /*import { AngularFirestoreModule } from '@angular/fire/firestore/public_api';*/
 @NgModule({
   declarations: [AppComponent],
@@ -27,13 +28,15 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    HttpClientModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     UserService,
+    Geolocation
     
   ],
   bootstrap: [AppComponent]

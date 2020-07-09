@@ -21,8 +21,9 @@
         <input id="uploadBtn" type="file" class="upload" (change)="uploadFile($event.target.files)" />
       </span>
       <ion-item>
-        <ion-textarea clearOnEdit="true">Write blog here:</ion-textarea>
+        <ion-textarea clearOnEdit="true" id="Write">Write blog here:</ion-textarea>
       </ion-item>
+   <ion-button (click)></ion-button>
     </ion-card-content>
   </ion-card>
 
@@ -78,12 +79,8 @@
           Location
         </ion-card-subtitle>
       <ion-card-title>
-        date
+       {{item.date}}
       </ion-card-title>
     </ion-card-header>
-
-    <ion-card-content>
-      
-    </ion-card-content>
   </ion-card>
 </ion-content>
