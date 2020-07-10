@@ -3,16 +3,16 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { Geolocation, Geoposition } from '@ionic-native/geolocation/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 export interface MyData {
+  title: string;
   name: string;
   filepath: string;
   size: number;
   date: string;
-  location: Geolocation
-  //blog: string;
-  //latitude: number,
-  //longitude: number
+  latitude: number;
+  longitude: number;
+  description: string;
 }
 
 @Component({
@@ -52,12 +52,13 @@ isUploaded:boolean;
 latitude:number;
 longitude:number;
 date: string;
-location: Geolocation;
+
+
 
 private imageCollection: AngularFirestoreCollection<MyData>;
-  getGeoencoder: any;
+  myinput: string;
+  blogtitle: string;
 constructor(
-  //public Timestamp (long seconds, int nanoseconds),
   private storage: AngularFireStorage, 
   private database: AngularFirestore,
   private geolocation: Geolocation,
@@ -76,20 +77,19 @@ ngOnInit(){
   
 }
 
-getGeolocation() {
-  this.geolocation.getCurrentPosition().then((resp) => {
+
+  
+uploadFile(event: FileList) {
+  
+  this.geolocation.getCurrentPosition().then((resp) =>{
 
     this.latitude = resp.coords.latitude;
     this.longitude = resp.coords.longitude;
-    this.getGeoencoder(resp.coords.latitude, resp.coords.longitude);
 
   }).catch((error) => {
     alert('Error getting location' + JSON.stringify(error));
   });
-}
-  
-uploadFile(event: FileList) {
-  
+
   
   // The File object
   const file = event.item(0)
@@ -121,7 +121,6 @@ uploadFile(event: FileList) {
   // The main task
   this.task = this.storage.upload(path, file, { customMetadata });
 
-  //location
   
    
   
@@ -136,12 +135,14 @@ uploadFile(event: FileList) {
       
       this.UploadedFileURL.subscribe(resp=>{
         this.addImagetoDB({
+          title: this.blogtitle,
           name: file.name,
           filepath: resp,
           size: this.fileSize,
           date: Date(),
-          location: this.geolocation
-          //location: this.location,
+          latitude: this.latitude,
+          longitude: this.longitude,
+          description: this.myinput,
         });
         this.isUploading = false;
         this.isUploaded = true;
@@ -158,7 +159,6 @@ uploadFile(event: FileList) {
 addImagetoDB(image: MyData) {
   //Create an ID for document
   const id = this.database.createId();
-
   //Set document id with value in database
   this.imageCollection.doc(id).set(image).then(resp => {
     console.log(resp);

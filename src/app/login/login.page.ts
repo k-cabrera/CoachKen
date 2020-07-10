@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
 import { UserService } from '../user.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -12,11 +13,18 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   username: string = ""
   password: string = ""
-  constructor(public auth: AngularFireAuth, public user: UserService, public router: Router) { }
+  constructor(public auth: AngularFireAuth, 
+    public user: UserService, 
+    public router: Router) { }
 
   ngOnInit() {
   }
   // abcdefg + @KenCee.com
+
+  goRegister(){
+    this.router.navigate(['/register']);
+  }
+
   async login() {
     const { username, password } = this
     try {

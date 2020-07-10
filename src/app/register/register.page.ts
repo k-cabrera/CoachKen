@@ -28,6 +28,10 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
   }
+  goLogin (){
+    this.router.navigate(['/login'])
+
+  }
 
   async presntAlert(title: string, content: string) {
     const alert = await this.alertController.create({

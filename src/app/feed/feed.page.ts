@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UploaderPage } from '../uploader/uploader.page';
 
 @Component({
   selector: 'app-feed',
