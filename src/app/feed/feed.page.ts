@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UploaderPage } from '../uploader/uploader.page';
+import { DataService } from '../services/data.service'
 
 @Component({
   selector: 'app-feed',

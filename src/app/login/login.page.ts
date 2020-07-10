@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { auth } from 'firebase/app';
 import { UserService } from '../user.service';
 
 
@@ -13,7 +12,8 @@ import { UserService } from '../user.service';
 export class LoginPage implements OnInit {
   username: string = ""
   password: string = ""
-  constructor(public auth: AngularFireAuth, 
+  constructor(
+    public auth: AngularFireAuth, 
     public user: UserService, 
     public router: Router) { }
 

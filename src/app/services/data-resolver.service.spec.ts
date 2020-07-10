@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthenticateService } from './authentication.service';
+import { DataResolverService } from './data-resolver.service';
 
-describe('AuthenticationService', () => {
-  let service: AuthenticateService;
+describe('DataResolverService', () => {
+  let service: DataResolverService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AuthenticateService);
+    service = TestBed.inject(DataResolverService);
   });
 
   it('should be created', () => {

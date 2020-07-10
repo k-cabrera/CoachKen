@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { UploaderPageRoutingModule } from './uploader-routing.module';
 import { UploaderPage } from './uploader.page';
@@ -15,4 +14,6 @@ import { UploaderPage } from './uploader.page';
   ],
   declarations: [UploaderPage]
 })
-export class UploaderPageModule {}
+export class UploaderPageModule {
+  
+}

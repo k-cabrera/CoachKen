@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { UserService } from '../user.service';
 export interface MyData {
   title: string;
   name: string;
@@ -53,6 +54,7 @@ latitude:number;
 longitude:number;
 date: string;
 
+userr: string;
 
 
 private imageCollection: AngularFirestoreCollection<MyData>;
@@ -62,11 +64,15 @@ constructor(
   private storage: AngularFireStorage, 
   private database: AngularFirestore,
   private geolocation: Geolocation,
+  private user: UserService,
   ) {
+
   this.isUploading = false;
   this.isUploaded = false;
   //Set collection where our documents/ images info will save
-  this.imageCollection = database.collection<MyData>('Posts');
+  
+  this.userr = this.user.getUID()
+  this.imageCollection = database.collection('users').doc(this.userr).collection<MyData>('Posts');
   this.images = this.imageCollection.valueChanges();
   
 
@@ -110,10 +116,10 @@ uploadFile(event: FileList) {
   this.fileName = file.name;
 
   // The storage path
-  const path = `freakyStorage/${new Date().getTime()}_${file.name}`;
+  const path = `images/${new Date().getTime()}_${file.name}`;
 
   // Totally optional metadata
-  const customMetadata = { app: 'Freaky Image Upload Demo' };
+  const customMetadata = { app: 'TXT Blog App' };
 
   //File reference
   const fileRef = this.storage.ref(path);
