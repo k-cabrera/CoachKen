@@ -175,7 +175,3 @@ addImagetoDB(image: MyData) {
 
 
 }
-  
-
-
-

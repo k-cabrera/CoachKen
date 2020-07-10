@@ -65,7 +65,7 @@ private imageCollection: AngularFirestoreCollection<MyData>;
     private user: UserService,
   ) {}
   
-  uploadFile(event: FileList) {
+  uploadFile(event) {
   
     this.geolocation.getCurrentPosition().then((resp) =>{
   
