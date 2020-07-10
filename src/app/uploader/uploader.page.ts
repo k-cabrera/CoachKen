@@ -3,23 +3,16 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-//import { Time } from '@angular/common';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation/ngx';
-//import { getLocaleDateFormat } from '@angular/common';
-//import { Data } from '@angular/router';
-//import Timestamp = firestore.Timestamp;
-//import { firestore } from 'firebase';
-//import * as firebase from 'firebase';
-
 export interface MyData {
   name: string;
   filepath: string;
   size: number;
   date: string;
+  location: Geolocation
   //blog: string;
   //latitude: number,
   //longitude: number
-  //location: Geolocation
 }
 
 @Component({
@@ -62,36 +55,40 @@ date: string;
 location: Geolocation;
 
 private imageCollection: AngularFirestoreCollection<MyData>;
+  getGeoencoder: any;
 constructor(
   //public Timestamp (long seconds, int nanoseconds),
   private storage: AngularFireStorage, 
   private database: AngularFirestore,
-  private geolocation: Geolocation
+  private geolocation: Geolocation,
   ) {
   this.isUploading = false;
   this.isUploaded = false;
   //Set collection where our documents/ images info will save
   this.imageCollection = database.collection<MyData>('Posts');
   this.images = this.imageCollection.valueChanges();
-
   
-}
+
+  }
+
 
 ngOnInit(){
   
 }
-//getCoordinates() {
-  //  this.geolocation.getCurrentPosition().then((resp) => {
-    //   this.latitude= resp.coords.latitude;
-      // this.longitude = resp.coords.latitude;
-      
-    //}).catch((error) => {
-      //console.log('Error getting location', error);
-   // });
-  //}
+
+getGeolocation() {
+  this.geolocation.getCurrentPosition().then((resp) => {
+
+    this.latitude = resp.coords.latitude;
+    this.longitude = resp.coords.longitude;
+    this.getGeoencoder(resp.coords.latitude, resp.coords.longitude);
+
+  }).catch((error) => {
+    alert('Error getting location' + JSON.stringify(error));
+  });
+}
   
 uploadFile(event: FileList) {
-
   
   
   // The File object
@@ -126,13 +123,7 @@ uploadFile(event: FileList) {
 
   //location
   
-    this.geolocation.getCurrentPosition().then((resp) => {
-       this.latitude= resp.coords.latitude;
-       this.longitude = resp.coords.latitude;
-      
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
+   
   
 
   // Get file progress percentage
@@ -149,12 +140,8 @@ uploadFile(event: FileList) {
           filepath: resp,
           size: this.fileSize,
           date: Date(),
-         // blog: blog,
-          //location: this.geolocation
-          //latitude: this.latitude,
-          //longitude: this.longitude
-         // longitude: longitudeloc,
-          //latitude: latitudeloc
+          location: this.geolocation
+          //location: this.location,
         });
         this.isUploading = false;
         this.isUploaded = true;
